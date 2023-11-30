@@ -1,12 +1,12 @@
 <?php
     include('conexao.php');
-
+    session_start();
     $conn=dbinit();
     $email = $_POST["email"];
     $senha = md5($_POST["senha"]);
 
     if(empty($_POST["email"]) || empty($_POST["senha"])){
-        header("Location:login.html");
+        header("Location:login.php");
 
         exit();
     }
@@ -20,5 +20,14 @@
 
     $row = $query->rowCount();
 
-    echo $row;
+    if($row == 1){
+        $_SESSION['usuario'] = $email;
+        header("Location:painel.php");
+        exit();
+    }
+    else{
+        $_SESSION['nao_autenticado'] = true;
+        header("Location:login.php");
+        exit();
+    }
 ?>

@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -21,9 +25,22 @@
 
             <h1 class="titulo1">Sistema Acadêmico</h1>
             <h3 class="titulo2">Acesse o sistema</h3>
+                            
+            <?php
+                
+                if(isset($_SESSION['nao_autenticado'])):  
+            ?>
+            <div style="text-align:center;background-color:red; color: white;padding: 0.5rem;border-radius:10px">
+                <p>ERRO: Usuário ou senha inválidos.</p>
+            </div>
+            <?php
+                endif;
+                unset($_SESSION['nao_autenticado']);
+            ?>
 
             <!--Início do formulário-->
             <form action="scriptlogin.php" method="post" id="form_login">
+
                 <div>
                     <label>Login <br></label>
                     <input type="email" name="email" placeholder="E-mail do usuário" >
