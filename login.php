@@ -33,9 +33,22 @@
             <div style="text-align:center;background-color:red; color: white;padding: 0.5rem;border-radius:10px">
                 <p>ERRO: Usuário ou senha inválidos.</p>
             </div>
+            
             <?php
                 endif;
                 unset($_SESSION['nao_autenticado']);
+            ?>
+            <?php
+                
+                if(isset($_SESSION['email_invalido'])):  
+            ?>
+            <div style="text-align:center;background-color:red; color: white;padding: 0.5rem;border-radius:10px">
+                <p>ERRO: email invalido.</p>
+            </div>
+            
+            <?php
+                endif;
+                unset($_SESSION['email_invalido']);
             ?>
 
             <!--Início do formulário-->
