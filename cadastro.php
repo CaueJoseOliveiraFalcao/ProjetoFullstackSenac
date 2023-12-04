@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,27 +23,48 @@
             </div>
         </div>
     </header>
-
+    <section>
+        <?php
+            if(isset($_SESSION['cadastrado'])):
+        ?>
+        <div style="text-align:center;background-color:green; color: white;padding: 0.5rem;border-radius:10px">
+            <p>Usuatio Cadastrado</p>
+        </div>
+        <?php
+            endif;
+            unset($_SESSION['cadastrado']);
+        ?>
+        <?php
+            if(isset($_SESSION['naocadastrado'])):
+        ?>
+        <div style="text-align:center;background-color:red; color: white;padding: 0.5rem;border-radius:10px">
+            <p>Usuatio Nao cadastrado</p>
+        </div>
+        <?php
+            endif;
+            unset($_SESSION['naocadastrado']);
+        ?>
+    </section>
     <main class="conteudo">
         <section class="bloco">
             
             <!--Início do formulário-->
-            <form action="" method="post" id="form-cad">
+            <form action="scriptcadastro.php" method="POST" id="form-cad">
                 <div>
                     Matrícula: <label>*</label>
-                    <input type="int" placeholder="Digite um número de matrícula" required>
+                    <input type="int" name="matricula" placeholder="Digite um número de matrícula" >
                 </div>
                 <div>
                     Nome completo: <label>*</label>
-                    <input type="text" placeholder="Digite o seu nome completo" required>
+                    <input type="text" name="nome" placeholder="Digite o seu nome completo" >
                 </div>
                 <div>
                     E-mail: <label>*</label>
-                    <input type="email" placeholder="Digite o seu melhor e-mail" required>
+                    <input type="email" name="email" placeholder="Digite o seu melhor e-mail" >
                 </div>
                 <div>
                     Senha: <label>*</label>
-                    <input type="password" placeholder="Cadastre uma senha forte" required>
+                    <input type="password" name="senha" placeholder="Cadastre uma senha forte" >
                 </div>
 
                 <p>Status: <label>*</label></p>

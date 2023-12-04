@@ -68,7 +68,7 @@
             </form><!--Fím do formulário-->
 
             <div class="conta">
-                <h4 style="text-align: center;">Ainda não tem conta? <a href="cadastro.html">Faça seu cadastro!</a></h4>
+                <h4 style="text-align: center;">Ainda não tem conta? <a href="cadastro.php">Faça seu cadastro!</a></h4>
             </div>
             
         </section>
