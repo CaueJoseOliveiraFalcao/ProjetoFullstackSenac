@@ -11,6 +11,6 @@
     }
     return $con;
   }
-  dbinit();0
+  dbinit();
 
 ?>
