@@ -94,7 +94,7 @@ $con = dbinit();
     $qtn_pages = ceil($row_qnt['num_result'] / $limite_result);
 
     $max_link = 2;
-    echo "<a href='listar.php?page=1'>Pagina</a>";
+    echo "<a href='listar.php?page=1'>Primeira</a>";
 
     for($previos_page = $pagina - $max_link; $previos_page <= $pagina - 1; $previos_page++){
         if ($previos_page >= 1 ){
@@ -106,6 +106,8 @@ $con = dbinit();
             echo "<a href='listar.php?page=$pos_page'>$pos_page</a>";
         }
     }
+    echo "<a href='listar.php?page=$qtn_pages'>Ultima</a>";
+
     } else {
         echo 'sem usuarios ';
     }
