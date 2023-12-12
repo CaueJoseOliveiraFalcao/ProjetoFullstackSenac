@@ -1,7 +1,8 @@
 <?php
 include('conexao.php');
 $con = dbinit();
-
+session_start();
+ob_start();
 $id = filter_input(INPUT_GET , "id" , FILTER_SANITIZE_NUMBER_INT);
 
 if(empty($id)){
@@ -14,7 +15,7 @@ $result_user = $con->prepare($query_id);
 
 $result_user->execute();
 
-if(($result_user)and ($result_user->rowCount() != 0){
+if(($result_user) and ($result_user->rowCount() != 0)){
     $rowUsuario = $result_user->fetch(PDO::FETCH_ASSOC);
 }
 else {
@@ -69,23 +70,77 @@ else {
     }
 </style>
 <body>
+    <?php
+    $dados = filter_input(INPUT_POST , FILTER_DEFAULT);
+    if (!empty($dados['EditUsuario'])){
+        $empty_input = false;
+
+        array_map('trim' , $dados);
+
+        if(in_array('', $dados)){
+            $empty_input = true;
+            echo '<p>Precncha todos os campos</p>';
+        }elseif (!filter_var($dados['email'] , FILTER_VALIDATE_EMAIL)) {
+            $empty_input = true;
+            echo '<p>Precncha email valido</p>';
+        }if(!$empty_input){
+            $query_user = "UPDATE usuarios SET matricula=:matricula , nome=:nome , email=:email , estatus=:estatus WHERE id=:id";
+            $edit_user =  $con->prepare($query_user);
+
+            $edit_user->bindParam(':matricula' , $dados['matricula'] , PDO::PARAM_INT);
+            $edit_user->bindParam(':nome' , $dados['nome'] , PDO::PARAM_STR);
+            $edit_user->bindParam(':email' , $dados['email'] , PDO::PARAM_STR);
+            $edit_user->bindParam(':estatus' , $dados['estatus'] , PDO::PARAM_STR);
+            $edit_user->bindParam(':id' , $id , PDO::PARAM_INT);
+
+            if($edit_user->execute()){
+                echo '<p>usuairo atualizado</p>';
+                header('Location:listar.php');
+            }else{
+                echo '<p>usuairo nao atualizado</p>';
+            }
+        }
+    }
+    ?>
     <header>
         <h1 style="text-align: center;">Alteração de Registros</h1>
     </header>
     <div class="container">
-        <form action="" method="POST">
+        <form class="form" action="" method="POST">
             <label for="">Matricula</label>
-            <input type="int" name="matricula" id="matricula" value="" placeholder="Digite uma Matricula"><br><br>
+            <input type="int" name="matricula" id="matricula" value="<?php 
+            if(isset($dados['matricula'])){
+                echo $dados['matricula'];
+            }elseif (isset($rowUsuario['matricula'])) {
+                echo $rowUsuario['matricula'];
+            }
+            ?>" placeholder="Digite uma Matricula"><br><br>
 
             <label for="">Nome</label>
-            <input type="text" name="nome" id="nome" value="" placeholder="Digite um Nome"><br><br>
+            <input type="text" name="nome" id="nome" value="<?php 
+            if(isset($dados['nome'])){
+                echo $dados['nome'];
+            }elseif (isset($rowUsuario['nome'])) {
+                echo $rowUsuario['nome'];
+            }
+            ?>" placeholder="Digite um Nome"><br><br>
 
             <label for="">Email</label>
-            <input type="email" name="email" id="email" value="" placeholder="Digite um Email"><br><br>
-
+            <input type="email" name="email" id="email" value="<?php 
+            if(isset($dados['email'])){
+                echo $dados['email'];
+            }elseif (isset($rowUsuario['email'])) {
+                echo $rowUsuario['email'];
+            }
+            ?>" placeholder="Digite um Email"><br><br>
             <label for="">Status</label>
-            <input type="text" name="status" id="status" value="" placeholder="Digite um Status"><br><br>
-            
+            <input type="text" name="status" id="stats" value="<?php 
+            if(isset($dados['estatus'])){
+                echo $dados['estatus'];
+            }elseif (isset($rowUsuario['estatus'])) {
+                echo $rowUsuario['estatus'];
+            }
+            ?>" placeholder="Digite um Estatus"><br><br>
             <div style="margin-top: 1rem;">
                 <input type="submit" value="Atualizar" name="EditUsuario">
             </div>

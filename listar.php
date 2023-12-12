@@ -75,7 +75,7 @@ $con = dbinit();
                     echo "<td>" . $email . "</td>";
                     echo "<td>" . $estatus . "</td>";
                     echo "<td>" . date("d/m/Y H:i:s", strtotime($dtcadastro)) . "</td>";
-                    echo "<td><a href='' >[Editar]</a> <a href='' >[Excluir]</a> </td>"; 
+                    echo "<td><a href='editar.php?id=$id' >[Editar]</a> <a href='' >[Excluir]</a> </td>"; 
                 echo "</tr>";
             }
         ?>
