@@ -37,13 +37,13 @@ $con = dbinit();
 
     $pagina = (!empty($actual_page_number)) ? $actual_page_number : 1;
     
-    $limite_result = 2;
+    $limite_result = 5;
 
     $inicio = ($limite_result * $pagina) - $limite_result;
 
 
 
-    $query_users = $con->prepare("SELECT id , matricula ,nome , email , estatus , dtcadastro FROM usuarios ORDER BY dtcadastro DESC ");
+    $query_users = $con->prepare("SELECT id , matricula ,nome , email , estatus , dtcadastro FROM usuarios ORDER BY dtcadastro ASC LIMIT $inicio , $limite_result ");
 
 
     $query_users->execute();
@@ -94,7 +94,6 @@ $con = dbinit();
     $qtn_pages = ceil($row_qnt['num_result'] / $limite_result);
 
     $max_link = 2;
-    echo "<a href='listar.php?page=1'>Primeira</a>";
 
     for($previos_page = $pagina - $max_link; $previos_page <= $pagina - 1; $previos_page++){
         if ($previos_page >= 1 ){
@@ -106,7 +105,6 @@ $con = dbinit();
             echo "<a href='listar.php?page=$pos_page'>$pos_page</a>";
         }
     }
-    echo "<a href='listar.php?page=$qtn_pages'>Ultima</a>";
 
     } else {
         echo 'sem usuarios ';
