@@ -43,7 +43,8 @@ session_start();
                 <div style="flex-direction:collum;display:flex;justify-itens:center;align-items;center;">
                     <div class="card">
                         <h1>Olá, <?php echo $_SESSION["usuario"];?></h1>
-                        <p>Voce tem a permissao Admin</p>
+                        <p>Voce tem a permissao Admin</p>4
+                        <a href="listar.php">Painel</a>
                     </div>
                 </div>
                 
